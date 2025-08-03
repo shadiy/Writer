@@ -1,39 +1,14 @@
 
-#include <intsafe.h>
 #define UNICODE
 #define _UNICODE
 
-#include <comdef.h>  // For _com_error (optional for debugging)
-#include <d2d1.h>
-#include <d2d1helper.h>
-#include <dwrite.h>
-#include <libloaderapi.h>
-#include <minwindef.h>
-#include <processthreadsapi.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <windows.h>
-#include <windowsx.h>
-#include <winuser.h>
-#include <wrl.h>
-#include <wrl/client.h>
-
-#include <string>
-
 #include "writer.h"
 
-using Microsoft::WRL::ComPtr;
-
-int window_width = 1024;
-int window_height = 768;
-
-ComPtr<ID2D1Factory> pD2DFactory;
-ComPtr<IDWriteFactory> pDWriteFactory;
-ComPtr<ID2D1HwndRenderTarget> pRenderTarget;
-ComPtr<IDWriteTextFormat> pTextFormat;
-ComPtr<ID2D1SolidColorBrush> pBrush;
+writer::ComPtr<ID2D1Factory> pD2DFactory;
+writer::ComPtr<IDWriteFactory> pDWriteFactory;
+writer::ComPtr<ID2D1HwndRenderTarget> pRenderTarget;
+writer::ComPtr<IDWriteTextFormat> pTextFormat;
+writer::ComPtr<ID2D1SolidColorBrush> pBrush;
 
 std::wstring stringToWstring(const std::string &s) {
   int len = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, NULL, 0);
@@ -129,7 +104,7 @@ writer::TextMetrics writer::MeasureText(std::wstring text) {
   ComPtr<IDWriteTextLayout> layout;
   HRESULT hr = pDWriteFactory->CreateTextLayout(
       text.c_str(), static_cast<UINT32>(text.length()), pTextFormat.Get(),
-      1920.0f, static_cast<FLOAT>(window_height), &layout);
+      1920.0f, 1080.0f, &layout);
 
   hr = layout->GetMetrics(&metrics);
 

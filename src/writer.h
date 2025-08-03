@@ -1,12 +1,17 @@
 #pragma once
+#include <comdef.h>  // For _com_error (optional for debugging)
 #include <d2d1.h>
+#include <d2d1helper.h>
 #include <dwrite.h>
-#include <intsafe.h>
 #include <windows.h>
+#include <wrl.h>
+#include <wrl/client.h>
 
 #include <string>
 
 namespace writer {
+
+using Microsoft::WRL::ComPtr;
 
 using Color = D2D1::ColorF;
 using Colors = D2D1::ColorF::Enum;
