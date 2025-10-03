@@ -28,6 +28,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
   switch (msg) {
     case WM_CREATE: {
       writer::Init(hwnd);
+      writer::LoadFont("Arial", 28);
 
       SetTimer(hwnd, 1, 100, NULL);
       return 0;
